@@ -16,14 +16,28 @@ $ ffs create my_app --arch clean --firebase --supabase
 `ffs` is a Dart CLI, so it runs anywhere the Dart SDK is installed (which
 ships with every Flutter install).
 
-From this repo:
-
 ```bash
-dart pub global activate --source path .
+dart pub global activate ffs_cli
 ```
 
-That puts an `ffs` executable on your `$PATH` (you may need to add Dart's
-`pub-cache/bin` to your PATH the first time — Dart prints the path).
+That puts an `ffs` executable on your `$PATH`. If `ffs` isn't found after
+activation, add Dart's pub-cache `bin` to your `PATH`:
+
+```bash
+# macOS / Linux — add to ~/.zshrc or ~/.bashrc:
+export PATH="$PATH":"$HOME/.pub-cache/bin"
+
+# Windows — append to PATH via System Properties:
+%LOCALAPPDATA%\Pub\Cache\bin
+```
+
+### Install from source
+
+```bash
+git clone https://github.com/swkhan-dev/ffs_cli.git
+cd ffs_cli
+dart pub global activate --source path .
+```
 
 ## Commands
 
@@ -69,7 +83,7 @@ matching the architecture you used at create time.
 
 The CLI is built with the `args` package's `CommandRunner`. Each command is a
 self-contained `Command<int>` subclass under `lib/src/commands/` and is wired
-up in `lib/ffs.dart`. To add a new top-level feature:
+up in `lib/ffs_cli.dart`. To add a new top-level feature:
 
 1. Drop `lib/src/commands/<thing>_command.dart`.
 2. Add `addCommand(<Thing>Command());` in `FfsRunner`.
